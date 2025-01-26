@@ -27,18 +27,7 @@ const ProductForm = () => {
     'Toys and Games',
     'Beauty and Cosmetics',
     'Automotive',
-    'Jewelry and Accessories',
-    'Groceries and Food',
-    'Baby Products',
-    'Pet Supplies',
-    'Tools and Hardware',
-    'Office Supplies',
-    'Musical Instruments',
-    'Furniture',
-    'Art and Craft',
-    'Industrial and Scientific',
-    'Video Games and Consoles',
-    'Music' // Add categories as needed
+     // Add categories as needed
   ];
 
   // Fetch existing product details if editing

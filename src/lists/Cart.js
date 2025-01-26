@@ -276,48 +276,99 @@ const ProductList = () => {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 
-    py-12 px-6 relative overflow-hidden">
-      {/* Decorative Blurred Circles */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-blue-500/30 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl"></div>
-
-      <div className="container mx-auto">
-        <h1 className="text-5xl font-extrabold text-center mb-12 
-        bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-white to-purple-300">
-          Our Products
-        </h1>
-
-        {error && (
-          <div className="bg-red-600/30 text-white p-4 rounded-lg text-center mb-4">
-            {error}
+<div
+          className="min-h-screen bg-cover bg-center flex items-center justify-center py-12 px-4"
+          style={{ backgroundImage: 'url("/path-to-your-background-image.jpg")' }} // Replace with actual image path
+        >
+          <div className="max-w-4xl w-full bg-white bg-opacity-80 backdrop-blur-md rounded-3xl shadow-lg overflow-hidden">
+            {/* Header */}
+            <div className="bg-black text-white px-8 py-6 rounded-t-3xl flex justify-between items-center">
+              <div className="flex items-center space-x-3">
+                <ShoppingCartIcon className="w-8 h-8 text-white" />
+                <h1 className="text-2xl font-bold">Your Cart</h1>
+              </div>
+              <span className="text-lg">
+                {cart.length > 0 ? ${cart[0].items.length} items : "Empty"}
+              </span>
+            </div>
+    
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-600 text-white px-6 py-4 text-center">
+                {error}
+              </div>
+            )}
+    
+            {/* Cart Items */}
+            <div className="p-8 space-y-6">
+              {loading ? (
+                <div className="text-center text-gray-500 py-12">
+                  Loading cart items...
+                </div>
+              ) : cart.length === 0  !cart[0]?.items?.length ? (
+                <div className="text-center text-gray-500 py-12">
+                  <PackageIcon className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                  <p>Your cart is empty</p>
+                </div>
+              ) : (
+                cart[0].items.map((item) => (
+                  <div
+                    key={item._id}
+                    className="flex items-center space-x-6 border-b border-gray-300 pb-6"
+                  >
+                    {/* Product Image */}
+                    <div className="w-24 h-24">
+                      <img
+                        src={item.product?.img  "/placeholder-image.jpg"} // Fallback image
+                        alt={item.product?.name  "Product Image"}
+                        className="w-full h-full object-cover rounded-md"
+                      />
+                    </div>
+    
+                    {/* Product Details */}
+                    <div className="flex-grow">
+                      <h3 className="text-xl font-semibold">
+                        {item.product?.name  "Unnamed Product"}
+                      </h3>
+                      <p className="text-gray-500 text-sm">
+                        {item.product?.desc  "No description available"}
+                      </p>
+                      <div className="flex items-center space-x-4 mt-2">
+                        <span className="text-lg font-bold">
+                          ${item.product?.price?.toFixed(2)  "0.00"}
+                        </span>
+                        <span className="text-gray-500">Units: {item.amount}</span>
+                      </div>
+                    </div>
+    
+                    {/* Item Total */}
+                    <div className="text-right">
+                      <span className="text-lg font-bold">
+                        ${(item.product?.price * item.amount).toFixed(2) || "0.00"}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+    
+            {/* Order Summary */}
+            {cart.length > 0 && cart[0]?.items?.length > 0 && (
+              <div className="bg-gray-100 px-8 py-6 border-t border-gray-300">
+                <div className="flex justify-between items-center">
+                  <span className="text-xl font-semibold">Total</span>
+                  <span className="text-2xl font-bold">${calculateTotal()}</span>
+                </div>
+                <button
+                  onClick={handlePlaceOrder}
+                  className="w-full mt-6 py-3 text-lg font-semibold text-white bg-black rounded-lg hover:bg-gray-800 transition"
+                >
+                  Place Order
+                </button>
+              </div>
+)}
           </div>
-        )}
-
-        {products.length === 0 ? (
-          <div className="text-center text-white/75">
-            No products available at the moment.
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {products.map((product) => (
-              <ProductCard
-                key={product._id}
-                product={product}
-                isInWishlist={wishlist.has(product._id)}
-                isInCart={cart.has(product._id)}
-                onAddToWishlist={() => addToWishlistFromService(product._id)}
-                onRemoveFromWishlist={() => removeFromWishlistFromService(product._id)}
-                onAddToCart={(quantity) => addToCartFromService(product._id, quantity)}
-                onRemoveFromCart={() => removeFromCartFromService(product._id)}
-                loadingWishlist={loadingWishlist.get(product._id)}
-                loadingCart={loadingCart.get(product._id)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+        </div>
   );
 };
 

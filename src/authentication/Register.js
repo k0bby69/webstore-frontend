@@ -48,9 +48,6 @@ const Register = () => {
         style={{ backgroundImage: "url('/lucbags.jpg')" }}
       >
         <div className="w-full max-w-md bg-white bg-opacity-80 rounded-lg shadow-lg p-8 space-y-6">
-          <a href="#" className="text-3xl font-bold text-center text-gray-900 mb-4">
-            MultiVendorApp
-          </a>
           <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
             Create your account
           </h1>

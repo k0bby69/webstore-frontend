@@ -249,7 +249,7 @@ const handleImageUpload = async (event) => {
   
       <button
         type="submit"
-        className="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all"
+        className="w-full py-3 bg-black text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all"
       >
         {id ? 'Update Product' : 'Create Product'}
       </button>

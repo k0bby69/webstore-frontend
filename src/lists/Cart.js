@@ -28,7 +28,7 @@ const Cart = () => {
 
     setLoading(true);
     try {
-        const response = await fetch('https://webstore-orderservice.onrender.com/cart', {
+        const response = await fetch(`https://webstore-orderservice.onrender.com/cart/${authState.userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,11 +49,11 @@ const Cart = () => {
         const data = await response.json();
         console.log('Cart Data:', data);
 
-        if (!data || !Array.isArray(data) || data.length === 0) {
+        if (!data || !Array.isArray(data.items) || data.items.length === 0) {
             setCart([]);
             setError('No items in the cart');
         } else {
-            setCart(data);
+            setCart([data]); // Ensure it's an array to match expected structure
         }
 
     } catch (err) {
@@ -62,6 +62,7 @@ const Cart = () => {
         setLoading(false);
     }
 };
+
 
 
     // Calculate total cart amount

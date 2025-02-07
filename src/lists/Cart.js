@@ -14,6 +14,7 @@ const Cart = () => {
 
     // Fetch cart items on component mount
     useEffect(() => {
+      console.log('Auth State:', authState);
         if (authState.isAuthenticated) {
             fetchCart();
         }
@@ -28,7 +29,7 @@ const Cart = () => {
 
     setLoading(true);
     try {
-        const response = await fetch(`https://webstore-orderservice.onrender.com/cart/${authState.userId}`, {
+        const response = await fetch('https://webstore-orderservice.onrender.com/cart', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,10 +38,6 @@ const Cart = () => {
         });
 
         console.log('API Response:', response);
-
-        if (response.status === 401) {
-            throw new Error('Unauthorized: Please log in again');
-        }
 
         if (!response.ok) {
             throw new Error(`Failed to fetch cart: ${response.statusText}`);
@@ -53,7 +50,7 @@ const Cart = () => {
             setCart([]);
             setError('No items in the cart');
         } else {
-            setCart([data]); // Ensure it's an array to match expected structure
+            setCart([data]);
         }
 
     } catch (err) {

@@ -30,15 +30,15 @@ const ProductCard = ({
 
   return (
     
-    <div className="bg-white/10 backdrop-blur-lg border border-white/20 
-    rounded-2xl p-6 space-y-4 transform transition-all duration-300 
+    <div className="bg-transparent/10 backdrop-blur-lg border border-black/10 
+    rounded-2xl p-5 space-y-4 transform transition-all duration-300 
     hover:scale-105 hover:shadow-2xl group relative overflow-hidden">
       {/* Product Image */}
       <div className="relative">
         <img 
           src={product.img} 
           alt={product.name} 
-          className="w-full h-48 object-cover rounded-lg 
+          className="w-full h-48 object-cover rounded- 
           group-hover:scale-110 transition-transform duration-300"
         />
         <Link 
@@ -51,80 +51,61 @@ const ProductCard = ({
       </div>
 
       {/* Product Details */}
-      <div className="space-y-2">
-        <h3 className="text-xl font-bold text-white truncate">{product.name}</h3>
-        <p className="text-white/75 line-clamp-2">{product.desc}</p>
-        <div className="flex justify-between items-center">
-          <span className="text-2xl font-bold text-blue-300">${product.price}</span>
-          <span className={`text-sm ${product.available ? 'text-green-400' : 'text-red-400'}`}>
-            {product.available ? 'In Stock' : 'Out of Stock'}
-          </span>
-        </div>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="grid grid-cols-2 gap-4">
-        {/* Wishlist Button */}
-        <button
-          onClick={isInWishlist ? onRemoveFromWishlist : onAddToWishlist}
-          disabled={loadingWishlist}
-          className={`flex items-center justify-center space-x-2 py-2 rounded-full 
-          transition-all duration-300 ${
-            isInWishlist 
-              ? 'bg-red-600/70 text-white hover:bg-red-700' 
-              : 'bg-white/10 text-white hover:bg-white/20'
-          } 
-          disabled:opacity-50`}
-        >
-          <HeartIcon 
-            className={`w-5 h-5 ${isInWishlist ? 'fill-current' : ''}`} 
-          />
-          <span>{loadingWishlist ? 'Processing...' : (isInWishlist ? 'Remove' : 'Wishlist')}</span>
-        </button>
-
-        {/* Cart Button */}
-        {isInCart ? (
-          <button
-            onClick={onRemoveFromCart}
-            disabled={loadingCart}
-            className="flex items-center justify-center space-x-2 py-2 
-            bg-red-600/70 text-white rounded-full hover:bg-red-700 
-            disabled:opacity-50"
-          >
-            <ShoppingCartIcon className="w-5 h-5" />
-            <span>{loadingCart ? 'Processing...' : 'Remove'}</span>
-          </button>
-        ) : (
-          <div className="grid grid-cols-[auto,1fr] gap-2">
-            <div className="flex items-center bg-white/10 rounded-full">
-              <button 
-                onClick={() => handleQuantityChange(-1)}
-                className="p-2 hover:bg-white/20 rounded-l-full"
-              >
-                <MinusIcon className="w-4 h-4 text-white" />
-              </button>
-              <span className="px-3 text-white">{quantity}</span>
-              <button 
-                onClick={() => handleQuantityChange(1)}
-                className="p-2 hover:bg-white/20 rounded-r-full"
-              >
-                <PlusIcon className="w-4 h-4 text-white" />
-              </button>
-            </div>
-            <button
-              onClick={() => onAddToCart(quantity)}
-              disabled={loadingCart}
-              className="flex items-center justify-center space-x-2 py-2 
-              bg-blue-600/70 text-white rounded-full hover:bg-blue-700 
-              disabled:opacity-50"
-            >
-              <ShoppingCartIcon className="w-5 h-5" />
-              <span>{loadingCart ? 'Adding...' : 'Add to Cart'}</span>
-            </button>
-          </div>
-        )}
-      </div>
+  <div className="space-y-4">
+    <h3 className="text-2xl font-semibold text-black">{product.name}</h3>
+    <p className="text-gray-600 text-sm line-clamp-2">{product.desc}</p>
+    <div className="flex justify-between items-center">
+      <span className="text-xl font-semibold text-black">${product.price}</span>
+      <span className={`text-sm font-medium ${product.available ? 'text-green-500' : 'text-red-500'}`}>
+        {product.available ? 'In Stock' : 'Out of Stock'}
+      </span>
     </div>
+  </div>
+
+     {/* Action Buttons */}
+<div className="grid grid-cols-1 gap-4 w-full">
+  {isInCart ? (
+    <button
+      onClick={onRemoveFromCart}
+      disabled={loadingCart}
+      className="w-full py-3 bg-black text-white rounded-md text-lg hover:bg-gray-800 transition duration-200 disabled:opacity-50"
+    >
+      <ShoppingCartIcon className="w-5 h-5 inline-block mr-2" />
+      <span>{loadingCart ? 'Processing...' : 'Remove from Cart'}</span>
+    </button>
+  ) : (
+    <>
+      {/* Quantity Selector */}
+      <div className="flex justify-center items-center bg-gray-100 rounded-md">
+        <button 
+          onClick={() => handleQuantityChange(-1)}
+          className="w-8 py-2 text-black hover:bg-gray-200 rounded-l-md transition"
+        >
+          <MinusIcon className="w-4 h-4" />
+        </button>
+        <span className="px-4 text-black">{quantity}</span>
+        <button 
+          onClick={() => handleQuantityChange(1)}
+          className="w-8 py-2 text-black hover:bg-gray-200 rounded-r-md transition"
+        >
+          <PlusIcon className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Add to Cart Button */}
+      <button
+        onClick={() => onAddToCart(quantity)}
+        disabled={loadingCart}
+        className="w-full py-2 bg-black text-white rounded-md text-lg hover:bg-gray-800 transition duration-200 disabled:opacity-50"
+      >
+        <ShoppingCartIcon className="w-5 h-5 inline-block mr-2" />
+        <span>{loadingCart ? 'Adding...' : 'Add to Cart'}</span>
+      </button>
+    </>
+  )}
+</div>
+
+</div>
   );
 };
 
@@ -268,17 +249,22 @@ const ProductList = () => {
   };
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 
+    <div className="min-h-screen bg-grey 
     py-12 px-6 relative overflow-hidden">
-      {/* Decorative Blurred Circles */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-blue-500/30 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl"></div>
+
 
       <div className="container mx-auto">
-        <h1 className="text-5xl font-extrabold text-center mb-12 
-        bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-white to-purple-300">
-          Our Products
-        </h1>
+      <div 
+  className="w-full h-48 bg-cover bg-center mb-12"
+  style={{ backgroundImage: "url('lucbags.jpg')" }}
+>
+  <div className="flex items-center justify-center w-full h-full ">
+    <h1 className="text-3xl font-extrabold text-white">
+      All Products Available
+    </h1>
+  </div>
+</div>
+
 
         {error && (
           <div className="bg-red-600/30 text-white p-4 rounded-lg text-center mb-4">

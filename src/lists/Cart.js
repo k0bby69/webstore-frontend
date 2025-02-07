@@ -20,27 +20,61 @@ const Cart = () => {
     }, [authState.isAuthenticated]);
 
     // Fetch the user's cart items
-    const fetchCart = async () => {
-        setLoading(true);
-        try {
-            const response = await fetch('https://webstore-orderservice.onrender.com/cart', {
-                headers: { Authorization: `Bearer ${authState.token}` },
-            });
-            const data = await response.json();
-            setCart(data);
-            setLoading(false);
-        } catch (err) {
-            setError(err.message || 'Failed to fetch cart');
-            setLoading(false);
+   const fetchCart = async () => {
+    if (!authState.token) {
+        setError('Missing authentication token');
+        return;
+    }
+
+    setLoading(true);
+    try {
+        const response = await fetch('https://webstore-orderservice.onrender.com/cart', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${authState.token}`,
+            },
+        });
+
+        console.log('API Response:', response);
+
+        if (response.status === 401) {
+            throw new Error('Unauthorized: Please log in again');
         }
-    };
+
+        if (!response.ok) {
+            throw new Error(`Failed to fetch cart: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Cart Data:', data);
+
+        if (!data || !Array.isArray(data) || data.length === 0) {
+            setCart([]);
+            setError('No items in the cart');
+        } else {
+            setCart(data);
+        }
+
+    } catch (err) {
+        setError(err.message || 'Failed to fetch cart');
+    } finally {
+        setLoading(false);
+    }
+};
+
 
     // Calculate total cart amount
-    const calculateTotal = () => {
-        return cart.length > 0 
-            ? cart[0].items.reduce((total, item) => total + item.product.price * item.amount, 0).toFixed(2)
-            : '0.00';
-    };
+   const calculateTotal = () => {
+    if (!cart.length || !cart[0].items) {
+        return '0.00';
+    }
+
+    return cart[0].items
+        .reduce((total, item) => total + (item.product?.price || 0) * (item.amount || 0), 0)
+        .toFixed(2);
+};
+
 
     // Handle placing the order
     const handlePlaceOrder = async () => {

@@ -38,6 +38,7 @@ const Cart = () => {
         });
 
         console.log('API Response:', response);
+        console.log("Fetching cart for user:", user._id);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch cart: ${response.statusText}`);

@@ -114,6 +114,13 @@ export const addToCart = async (productId, quantity, token) => {
   }
 };
 
+   
+    return response.data;
+  } catch (error) {
+    throw new Error('Error adding product to cart: ' + error.message);
+  }
+};
+
 
 
 export const removeFromCart = async (productId, token) => {

@@ -14,7 +14,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProductAndSellerDetails = async () => {
       try {
-        const productResponse = await fetch(`https://webstore-productservice.onrender.com/${id}`, {
+        const productResponse = await fetch(`https://productsservice-gwhp.onrender.com/${id}`, {
           headers: { 'Authorization': `Bearer ${authState.token}` },
         });
         if (!productResponse.ok) {

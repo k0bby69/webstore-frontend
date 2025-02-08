@@ -99,11 +99,8 @@ export const removeFromWishlist = async (productId, token) => {
 export const addToCart = async (productId, quantity, token) => {
   try {
     const response = await axios.put(
-      `${API_URL}cart`,  // Ensure correct API route
-      { 
-        productId,  // Send productId directly
-        amount: quantity 
-      },
+      `${API_URL}cart`,
+      { productId, amount: quantity },  // Send productId directly, not { product: { _id: productId } }
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -111,6 +108,15 @@ export const addToCart = async (productId, quantity, token) => {
         },
       }
     );
+    
+    console.log("Cart updated:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding product to cart:", error.response?.data || error.message);
+    throw new Error("Error adding product to cart: " + error.message);
+  }
+};
+
 
     console.log("Cart updated:", response.data);
     return response.data;

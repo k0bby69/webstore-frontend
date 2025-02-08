@@ -106,11 +106,10 @@ export const addToCart = async (productId, quantity, token) => {
           Authorization: `Bearer ${token}`,
         },
       }
-      console.log("added to cart in backend"),
-    );
-
+      
+    )
        
-
+    console.log("added to cart in backend")
     
     return response.data;
 

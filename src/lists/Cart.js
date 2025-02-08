@@ -37,7 +37,7 @@ const Cart = () => {
             },
         });
 
-        console.log("Fetching cart for user:", response._id);
+        console.log("Fetching cart for user:", user._id);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch cart: ${response.statusText}`);

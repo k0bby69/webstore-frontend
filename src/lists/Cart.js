@@ -29,7 +29,7 @@ const Cart = () => {
 
     setLoading(true);
     try {
-        const response = await fetch('https://webstore-productservice.onrender.com/cart', {
+        const response = await fetch('https://webstore-orderservice.onrender.com/cart', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const ProfileDetail = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get('https://webstore-userservice.onrender.com/profile', {
+        const response = await axios.get('https://authenticationservice-gq22.onrender.com/profile', {
           headers: {
             Authorization: `Bearer ${authState.token}`,
           },

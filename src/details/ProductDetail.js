@@ -25,7 +25,7 @@ const ProductDetail = () => {
 
         if (productData.seller) {
           try {
-            const sellerResponse = await fetch(`https://webstore-userservice.onrender.com/product/seller/${productData.seller}`, {
+            const sellerResponse = await fetch(`https://authenticationservice-gq22.onrender.com/seller/${productData.seller}`, {
               headers: { 'Authorization': `Bearer ${authState.token}` },
             });
             if (!sellerResponse.ok) {

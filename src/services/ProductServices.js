@@ -100,7 +100,7 @@ export const addToCart = async (productId, quantity, token) => {
   try {
     const response = await axios.put(
       `${API_URL}cart`,
-      { product: { _id: productId }, amount: quantity },  // Corrected request body structure
+      { productId, amount: quantity },  // Fix: Send productId directly
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -109,11 +109,11 @@ export const addToCart = async (productId, quantity, token) => {
     );
    
     return response.data;
-
   } catch (error) {
     throw new Error('Error adding product to cart: ' + error.message);
   }
 };
+
 
 
 export const removeFromCart = async (productId, token) => {

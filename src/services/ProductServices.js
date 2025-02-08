@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const API_URL = 'https://webstore-productservice.onrender.com/';
+const API_URL = 'https://webstore-orderservice.onrender.com/';
 
 export const fetchProducts = async (token) => {
   try {

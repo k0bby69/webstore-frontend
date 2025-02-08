@@ -37,7 +37,6 @@ const Cart = () => {
             },
         });
 
-        console.log('API Response:', response);
         console.log("Fetching cart for user:", user._id);
 
         if (!response.ok) {

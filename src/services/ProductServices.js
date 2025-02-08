@@ -118,18 +118,6 @@ export const addToCart = async (productId, quantity, token) => {
 };
 
 
-    console.log("Cart updated:", response.data);
-    return response.data;
-  } catch (error) {
-    console.error("Error adding product to cart:", error.response?.data || error.message);
-    throw new Error("Error adding product to cart: " + error.message);
-  }
-};
-
-
-
-
-
 export const removeFromCart = async (productId, token) => {
   try {
     const response = await axios.delete(`${API_URL}cart/${productId}`, {

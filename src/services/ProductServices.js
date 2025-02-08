@@ -107,7 +107,9 @@ export const addToCart = async (productId, quantity, token) => {
         },
       }
     );
-   
+
+    console.log["added to cart in backend"]
+    
     return response.data;
 
   } catch (error) {

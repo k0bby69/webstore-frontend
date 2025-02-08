@@ -19,7 +19,7 @@ const Register = () => {
         }
 
         try {
-            const response = await fetch('https://webstore-userservice.onrender.com/signup', {
+            const response = await fetch('https://authenticationservice-gq22.onrender.com/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

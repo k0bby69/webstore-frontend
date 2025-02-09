@@ -21,12 +21,6 @@ const Cart = () => {
     }, [authState.isAuthenticated]);
 
     // Fetch the user's cart items
-   const fetchCart = async () => {
-    if (!authState.token) {
-        setError('Missing authentication token');
-        return;
-    }
-
     setLoading(true);
     try {
         const response = await fetch('https://webstore-orderservice.onrender.com/cart', {

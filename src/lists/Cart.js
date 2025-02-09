@@ -14,59 +14,33 @@ const Cart = () => {
 
     // Fetch cart items on component mount
     useEffect(() => {
-      console.log('Auth State:', authState);
         if (authState.isAuthenticated) {
             fetchCart();
         }
     }, [authState.isAuthenticated]);
 
     // Fetch the user's cart items
-    setLoading(true);
-    try {
-        const response = await fetch('https://webstore-orderservice.onrender.com/cart', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${authState.token}`,
-            },
-        });
-
-        console.log("Fetching cart for user:", user._id);
-
-        if (!response.ok) {
-            throw new Error(`Failed to fetch cart: ${response.statusText}`);
+    const fetchCart = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('https://webstore-orderservice.onrender.com/cart', {
+                headers: { Authorization: `Bearer ${authState.token}` },
+            });
+            const data = await response.json();
+            setCart(data);
+            setLoading(false);
+        } catch (err) {
+            setError(err.message || 'Failed to fetch cart');
+            setLoading(false);
         }
-
-        const data = await response.json();
-        console.log('Cart Data:', data);
-
-        if (!data || !Array.isArray(data.items) || data.items.length === 0) {
-            setCart([]);
-            setError('No items in the cart');
-        } else {
-            setCart([data]);
-        }
-
-    } catch (err) {
-        setError(err.message || 'Failed to fetch cart');
-    } finally {
-        setLoading(false);
-    }
-};
-
-
+    };
 
     // Calculate total cart amount
-   const calculateTotal = () => {
-    if (!cart.length || !cart[0].items) {
-        return '0.00';
-    }
-
-    return cart[0].items
-        .reduce((total, item) => total + (item.product?.price || 0) * (item.amount || 0), 0)
-        .toFixed(2);
-};
-
+    const calculateTotal = () => {
+        return cart.length > 0 
+            ? cart[0].items.reduce((total, item) => total + item.product.price * item.amount, 0).toFixed(2)
+            : '0.00';
+    };
 
     // Handle placing the order
     const handlePlaceOrder = async () => {
@@ -85,7 +59,7 @@ const Cart = () => {
         };
 
         try {
-            await fetch('https://webstore-orderservice.onrender.com/order', {
+            await fetch('https://multivendorplatform-shopping-service.onrender.com/order', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',

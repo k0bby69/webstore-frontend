@@ -136,125 +136,108 @@ const handleImageUpload = async (event) => {
     return <p>You are not authorized to view this page.</p>;
   }
 
-  return (<div className="max-w-3xl mx-auto p-8 bg-white shadow-lg rounded-lg">
-    <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">{id ? 'Edit Product' : 'Create Product'}</h2>
-  
-    {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-    {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
-  
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-          Product Name
-        </label>
-        <input
-          id="name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-          className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        />
-      </div>
-  
-      <div>
-        <label htmlFor="desc" className="block text-sm font-medium text-gray-700 mb-2">
-          Description
-        </label>
-        <textarea
-          id="desc"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-          required
-          className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        />
-      </div>
-  
-      <div>
-        <label htmlFor="img" className="block text-sm font-medium text-gray-700 mb-2">
-          Upload Image
-        </label>
-        <div className="flex items-center space-x-4">
+  return (<div className="max-w-3xl mx-auto p-8 bg-gray-900 text-white shadow-lg rounded-xl text-center">
+      <h2 className="text-4xl font-extrabold mb-6">{id ? 'Edit Product' : 'Create Product'}</h2>
+      {error && <p className="text-red-400 mb-4">{error}</p>}
+      {success && <p className="text-green-400 mb-4">{success}</p>}
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
           <input
-            id="img"
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            id="name"
+            type="text"
+            placeholder="Product Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
           />
-          <FaUpload className="text-gray-500" />
         </div>
-        {uploading && <p className="text-gray-500 text-sm mt-2">Uploading...</p>}
-        {img && <img src={img} alt="Uploaded" className="mt-4 h-24 w-24 object-cover rounded-full" />}
-      </div>
-  
-      <div>
-        <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2">
-          Category
-        </label>
-        <select
-          id="type"
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          required
-          className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+
+        <div>
+          <textarea
+            id="desc"
+            placeholder="Description"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            required
+            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
+
+        <div>
+          <div className="flex flex-col items-center space-y-3">
+            <label htmlFor="img" className="cursor-pointer flex items-center space-x-2 bg-purple-600 px-4 py-2 rounded-md hover:bg-purple-700">
+              <FaUpload />
+              <span>Upload Image</span>
+            </label>
+            <input
+              id="img"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+            {uploading && <p className="text-gray-400">Uploading...</p>}
+            {img && <img src={img} alt="Uploaded" className="h-24 w-24 object-cover rounded-lg" />}
+          </div>
+        </div>
+
+        <div>
+          <select
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            required
+            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+          >
+            <option value="" disabled>Select a category</option>
+            {PRODUCT_CATEGORIES.map((category) => (
+              <option key={category} value={category}>{category}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <input
+            id="stock"
+            type="number"
+            placeholder="Stock"
+            value={stock}
+            onChange={(e) => setStock(Number(e.target.value))}
+            required
+            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            id="price"
+            type="number"
+            placeholder="Price"
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
+            required
+            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+          />
+        </div>
+
+        <div className="flex justify-center items-center space-x-3">
+          <label htmlFor="available" className="text-sm">Available</label>
+          <input
+            id="available"
+            type="checkbox"
+            checked={available}
+            onChange={(e) => setAvailable(e.target.checked)}
+            className="h-5 w-5"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all text-lg font-bold"
         >
-          <option value="" disabled>Select a category</option>
-          {PRODUCT_CATEGORIES.map((category) => (
-            <option key={category} value={category}>{category}</option>
-          ))}
-        </select>
-      </div>
-  
-      <div>
-        <label htmlFor="stock" className="block text-sm font-medium text-gray-700 mb-2">
-          Stock
-        </label>
-        <input
-          id="stock"
-          type="number"
-          value={stock}
-          onChange={(e) => setStock(Number(e.target.value))}
-          required
-          className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        />
-      </div>
-  
-      <div>
-        <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-2">
-          Price
-        </label>
-        <input
-          id="price"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(Number(e.target.value))}
-          required
-          className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        />
-      </div>
-  
-      <div>
-        <label htmlFor="available" className="block text-sm font-medium text-gray-700 mb-2">
-          Available
-        </label>
-        <input
-          id="available"
-          type="checkbox"
-          checked={available}
-          onChange={(e) => setAvailable(e.target.checked)}
-          className="h-5 w-5 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-  
-      <button
-        type="submit"
-        className="w-full py-3 bg-black text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all"
-      >
-        {id ? 'Update Product' : 'Create Product'}
-      </button>
-    </form>
-  </div>
+          {id ? 'Update Product' : 'Create Product'}
+        </button>
+      </form>
+    </div>
   
   );
 };

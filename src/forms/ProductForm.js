@@ -150,7 +150,7 @@ const handleImageUpload = async (event) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
+            className="w-full p-3 bg-grey-600 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           />
         </div>
 
@@ -161,7 +161,7 @@ const handleImageUpload = async (event) => {
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
             required
-            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
+            className="w-full p-3 bg-grey-600 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           />
         </div>
 
@@ -189,7 +189,7 @@ const handleImageUpload = async (event) => {
             value={type}
             onChange={(e) => setType(e.target.value)}
             required
-            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
+            className="w-full p-3 bg-grey-600 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           >
             <option value="" disabled>Select a category</option>
             {PRODUCT_CATEGORIES.map((category) => (
@@ -206,7 +206,7 @@ const handleImageUpload = async (event) => {
             value={stock}
             onChange={(e) => setStock(Number(e.target.value))}
             required
-            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
+            className="w-full p-3 bg-grey-600 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           />
           <input
             id="price"
@@ -215,7 +215,7 @@ const handleImageUpload = async (event) => {
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
             required
-            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
+            className="w-full p-3 bg-grey-600 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           />
         </div>
 

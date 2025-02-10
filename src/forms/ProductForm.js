@@ -136,7 +136,7 @@ const handleImageUpload = async (event) => {
     return <p>You are not authorized to view this page.</p>;
   }
 
-  return (<div className="max-w-3xl mx-auto p-8 bg-gray-900 text-white shadow-lg rounded-xl text-center">
+  return (<div className="max-w-3xl mx-auto p-8 bg-black text-white shadow-lg rounded-xl text-center">
       <h2 className="text-4xl font-extrabold mb-6">{id ? 'Edit Product' : 'Create Product'}</h2>
       {error && <p className="text-red-400 mb-4">{error}</p>}
       {success && <p className="text-green-400 mb-4">{success}</p>}
@@ -150,7 +150,7 @@ const handleImageUpload = async (event) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           />
         </div>
 
@@ -161,13 +161,13 @@ const handleImageUpload = async (event) => {
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
             required
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           />
         </div>
 
         <div>
           <div className="flex flex-col items-center space-y-3">
-            <label htmlFor="img" className="cursor-pointer flex items-center space-x-2 bg-purple-600 px-4 py-2 rounded-md hover:bg-purple-700">
+            <label htmlFor="img" className="cursor-pointer flex items-center space-x-2 bg-yellow-600 px-4 py-2 rounded-md hover:bg-yellow-700">
               <FaUpload />
               <span>Upload Image</span>
             </label>
@@ -189,7 +189,7 @@ const handleImageUpload = async (event) => {
             value={type}
             onChange={(e) => setType(e.target.value)}
             required
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           >
             <option value="" disabled>Select a category</option>
             {PRODUCT_CATEGORIES.map((category) => (
@@ -206,7 +206,7 @@ const handleImageUpload = async (event) => {
             value={stock}
             onChange={(e) => setStock(Number(e.target.value))}
             required
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           />
           <input
             id="price"
@@ -215,7 +215,7 @@ const handleImageUpload = async (event) => {
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
             required
-            className="w-full p-3 bg-gray-800 border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-purple-500"
+            className="w-full p-3 bg-black border border-gray-700 rounded-md text-white text-center focus:ring-2 focus:ring-yellow-500"
           />
         </div>
 
@@ -232,7 +232,7 @@ const handleImageUpload = async (event) => {
 
         <button
           type="submit"
-          className="w-full py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all text-lg font-bold"
+          className="w-full py-3 bg-yellow-600 text-white rounded-lg hover:bg-purple-700 transition-all text-lg font-bold"
         >
           {id ? 'Update Product' : 'Create Product'}
         </button>

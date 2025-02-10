@@ -59,7 +59,7 @@ const Cart = () => {
         };
 
         try {
-            await fetch('https://multivendorplatform-shopping-service.onrender.com/order', {
+            await fetch('https://webproject-orderservice.onrender.com/order', {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -74,94 +74,103 @@ const Cart = () => {
         }
     };
 
-    return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-blue-900 py-12 px-4">
-            <div className="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl overflow-hidden">
-                {/* Header */}
-                <div className="px-6 py-4 bg-white/20 flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                        <ShoppingCartIcon className="w-8 h-8 text-blue-300" />
-                        <h1 className="text-3xl font-bold text-white">Your Cart</h1>
-                        <span className="text-white/75">{cart.length > 0 ? `${cart[0].items.length} items` : 'Empty'}</span>
-                    </div>
-                    {error && (
-                        <div className="bg-red-600/50 text-white px-4 py-2 rounded-lg">
-                            {error}
-                        </div>
-                    )}
-                </div>
-
-                {/* Cart Items */}
-                <div className="p-6">
-                    {loading ? (
-                        <div className="text-center text-white/75 py-12">
-                            Loading cart items...
-                        </div>
-                    ) : cart.length === 0 ? (
-                        <div className="text-center text-white/75 py-12">
-                            <PackageIcon className="w-16 h-16 mx-auto mb-4 text-white/50" />
-                            <p>Your cart is empty</p>
-                        </div>
-                    ) : (
-                        <div className="space-y-4">
-                            {cart[0].items.map((item) => (
-                                <div 
-                                    key={item._id} 
-                                    className="bg-white/10 rounded-lg p-4 flex items-center space-x-4 hover:bg-white/20 transition-all"
-                                >
-                                    <img 
-                                        src={item.product.img} 
-                                        alt={item.product.name} 
-                                        className="w-24 h-24 object-cover rounded-lg"
-                                    />
-                                    <div className="flex-grow">
-                                        <h3 className="text-xl font-bold text-white">{item.product.name}</h3>
-                                        <p className="text-white/75">{item.product.desc}</p>
-                                        <div className="flex items-center space-x-4 mt-2">
-                                            <span className="text-blue-300 font-semibold">
-                                                ${item.product.price.toFixed(2)}
-                                            </span>
-                                            <span className="text-white bg-white/10 px-3 py-1 rounded-full">
-                                                Units: {item.amount}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className="flex flex-col items-end">
-                                        <span className="text-xl font-bold text-green-300">
-                                            ${(item.product.price * item.amount).toFixed(2)}
-                                        </span>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-
-                {/* Order Summary */}
-                {cart.length > 0 && (
-                    <div className="bg-white/20 px-6 py-4">
-                        <div className="flex justify-between items-center">
-                            <div className="flex items-center space-x-4">
-                                <CreditCardIcon className="w-6 h-6 text-blue-300" />
-                                <span className="text-xl font-semibold text-white">Total</span>
-                            </div>
-                            <span className="text-2xl font-bold text-green-300">
-                                ${calculateTotal()}
-                            </span>
-                        </div>
-                        <button 
-                            onClick={handlePlaceOrder}
-                            className="w-full mt-4 bg-blue-600/70 text-white py-3 rounded-full 
-                            hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2"
-                        >
-                            <PackageIcon className="w-6 h-6" />
-                            <span>Place Order</span>
-                        </button>
-                    </div>
-                )}
+   
+      return (
+        <div
+          className="min-h-screen bg-cover bg-center flex items-center justify-center py-12 px-4"
+          style={{ backgroundImage: 'url("/path-to-your-background-image.jpg")' }} // Replace with actual image path
+        >
+          <div className="max-w-4xl w-full bg-white bg-opacity-80 backdrop-blur-md rounded-3xl shadow-lg overflow-hidden">
+            {/* Header */}
+            <div className="bg-black text-white px-8 py-6 rounded-t-3xl flex justify-between items-center">
+              <div className="flex items-center space-x-3">
+                <ShoppingCartIcon className="w-8 h-8 text-white" />
+                <h1 className="text-2xl font-bold">Your Cart</h1>
+              </div>
+              <span className="text-lg">
+                {cart.length > 0 ? `${cart[0].items.length} items` : "Empty"}
+              </span>
             </div>
+    
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-600 text-white px-6 py-4 text-center">
+                {error}
+              </div>
+            )}
+    
+            {/* Cart Items */}
+            <div className="p-8 space-y-6">
+              {loading ? (
+                <div className="text-center text-gray-500 py-12">
+                  Loading cart items...
+                </div>
+              ) : cart.length === 0 || !cart[0]?.items?.length ? (
+                <div className="text-center text-gray-500 py-12">
+                  <PackageIcon className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                  <p>Your cart is empty</p>
+                </div>
+              ) : (
+                cart[0].items.map((item) => (
+                  <div
+                    key={item._id}
+                    className="flex items-center space-x-6 border-b border-gray-300 pb-6"
+                  >
+                    {/* Product Image */}
+                    <div className="w-24 h-24">
+                      <img
+                        src={item.product?.img || "/placeholder-image.jpg"} // Fallback image
+                        alt={item.product?.name || "Product Image"}
+                        className="w-full h-full object-cover rounded-md"
+                      />
+                    </div>
+    
+                    {/* Product Details */}
+                    <div className="flex-grow">
+                      <h3 className="text-xl font-semibold">
+                        {item.product?.name || "Unnamed Product"}
+                      </h3>
+                      <p className="text-gray-500 text-sm">
+                        {item.product?.desc || "No description available"}
+                      </p>
+                      <div className="flex items-center space-x-4 mt-2">
+                        <span className="text-lg font-bold">
+                          ${item.product?.price?.toFixed(2) || "0.00"}
+                        </span>
+                        <span className="text-gray-500">Units: {item.amount}</span>
+                      </div>
+                    </div>
+    
+                    {/* Item Total */}
+                    <div className="text-right">
+                      <span className="text-lg font-bold">
+                        ${(item.product?.price * item.amount).toFixed(2) || "0.00"}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+    
+            {/* Order Summary */}
+            {cart.length > 0 && cart[0]?.items?.length > 0 && (
+              <div className="bg-gray-100 px-8 py-6 border-t border-gray-300">
+                <div className="flex justify-between items-center">
+                  <span className="text-xl font-semibold">Total</span>
+                  <span className="text-2xl font-bold">${calculateTotal()}</span>
+                </div>
+                <button
+                  onClick={handlePlaceOrder}
+                  className="w-full mt-6 py-3 text-lg font-semibold text-white bg-black rounded-lg hover:bg-gray-800 transition"
+                >
+                  Place Order
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-    );
-};
-
+      );
+    };
+    
+    
 export default Cart;
